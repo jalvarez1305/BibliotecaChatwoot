@@ -94,9 +94,9 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             return conv;
         }
 
-        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros)
+        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros,ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
-            Console.WriteLine($"Cantidad de parametros: {Parametros.Count} Texto: {Plantilla} al contacto: {contactoId}");
+            Console.WriteLine($"Cantidad de parametros: {Parametros.Count} Texto: {Plantilla} al contacto: {contactoId} desde: {buzon}");
             string TextToSend = Plantilla;
             for (int ii = 0; ii < Parametros.Count; ii++)
             {
@@ -108,13 +108,14 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             if (open_conv > 0)
             {
                 Console.WriteLine($"Se enla conversacion: {open_conv}");
-                SendConversationMessage(open_conv, TextToSend);
+                SendConversationMessage(open_conv, TextToSend,buzon: buzon);
             }
             else
             {
                 var conversation = new CreateConversationBody()
                 {
                     contact_id = contactoId,
+                    inbox_id= (int)buzon,
                     message = new Message()
                     {
                         content = TextToSend,                       
@@ -140,13 +141,13 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                 }
             }
         }
-        public void EnviarMensajeInicial(int contactoId, string Nombre)
+        public void EnviarMensajeInicial(int contactoId, string Nombre,ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
             List<string> parametros = new List<string>();
             parametros.Add(Nombre);
-            EnviaMensajePlantilla(contactoId, new Templates().sorteo_240430, parametros);            
+            EnviaMensajePlantilla(contactoId, new Templates().sorteo_240430, parametros, buzon);            
         }
-        public void SendConversationMessage(int ConversationID, string message,bool is_private=false)
+        public void SendConversationMessage(int ConversationID, string message,bool is_private=false, ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
             Console.WriteLine($"Enviando: {ConversationID} Msg:{message}");
             var request = new RestRequest($"/conversations/{ConversationID}/messages", Method.Post);

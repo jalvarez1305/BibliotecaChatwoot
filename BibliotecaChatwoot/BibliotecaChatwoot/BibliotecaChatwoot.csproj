@@ -141,6 +141,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Models\Airtable\CM_Videos_Boletos.cs" />
     <Compile Include="Models\Chatwoot\AssignConversationModel.cs" />
+    <Compile Include="Models\Chatwoot\ChatwootSenders.cs" />
     <Compile Include="Models\Chatwoot\ContactFoundModel.cs" />
     <Compile Include="Models\Chatwoot\CreateConversationBody.cs" />
     <Compile Include="Models\Chatwoot\CreateMessage.cs" />
