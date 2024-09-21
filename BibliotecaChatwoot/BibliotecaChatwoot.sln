@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35229.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BibliotecaChatwoot", "BibliotecaChatwoot\BibliotecaChatwoot.csproj", "{0D375307-BD4A-4B97-A7CB-5321AEE84883}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D375307-BD4A-4B97-A7CB-5321AEE84883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D375307-BD4A-4B97-A7CB-5321AEE84883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D375307-BD4A-4B97-A7CB-5321AEE84883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D375307-BD4A-4B97-A7CB-5321AEE84883}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45F6FA71-7E7C-4D9F-96B2-7B4961C3922E}
+	EndGlobalSection
+EndGlobal
