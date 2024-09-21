@@ -1,19 +1,23 @@
 ﻿using RestSharp;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
-namespace BibliotecasCrediMotos.Services.Chatwoot
+namespace BibliotecaChatwoot.Services.Chatwoot
 {
-    public  class Chatwoot_Media
+    public class Chatwoot_Media
     {
-        private static readonly HttpClient httpClient = new HttpClient();
         private Config _config;
+
         public Chatwoot_Media()
         {
             _config = new Config();
         }
+
         public async Task<MemoryStream> DownloadVideoAsync(string url)
-        {   
+        {
             var client = new RestClient(url);
-            var request = new RestRequest("",Method.Get);
+            var request = new RestRequest("", Method.Get);
             request.AddHeader("api_access_token", _config.CW_TOKEN);
 
             var response = await client.ExecuteAsync(request);
@@ -27,6 +31,5 @@ namespace BibliotecasCrediMotos.Services.Chatwoot
             memoryStream.Position = 0; // Reset the position to the beginning of the stream
             return memoryStream;
         }
-
     }
 }

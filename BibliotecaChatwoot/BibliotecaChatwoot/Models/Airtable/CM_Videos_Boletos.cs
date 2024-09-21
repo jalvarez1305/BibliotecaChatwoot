@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BibliotecasCrediMotos.Models.Airtable
+namespace BibliotecaChatwoot.Models.Airtable
 {
     public class CM_Videos_Boletos
     {

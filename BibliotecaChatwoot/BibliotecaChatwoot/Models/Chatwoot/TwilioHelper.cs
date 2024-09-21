@@ -5,7 +5,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
-namespace BibliotecasCrediMotos.Models.Chatwoot
+namespace BibliotecaChatwoot.Models.Chatwoot
 {
     public class TwilioHelper
     {

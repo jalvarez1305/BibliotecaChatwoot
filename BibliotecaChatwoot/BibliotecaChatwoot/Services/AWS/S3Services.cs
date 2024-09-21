@@ -9,7 +9,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using RestSharp;
 
-namespace BibliotecasCrediMotos.Services.AWS
+namespace BibliotecaChatwoot.Services.AWS
 {
     public enum S3_FileType
     {

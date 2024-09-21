@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using RestSharp;
 using Newtonsoft.Json;
-using BibliotecasCrediMotos.Models.Chatwoot;
-using BibliotecasCrediMotos.Models;
+using BibliotecaChatwoot.Models.Chatwoot;
+using BibliotecaChatwoot.Models;
 using Twilio.Http;
 
-namespace BibliotecasCrediMotos.Services.Chatwoot
+namespace BibliotecaChatwoot.Services.Chatwoot
 {
     public class CW_Conversation_Service
     {

@@ -1,5 +1,5 @@
-﻿using BibliotecasCrediMotos.Models.Chatwoot;
-using BibliotecasCrediMotos.OpenAI;
+﻿using BibliotecaChatwoot.Models.Chatwoot;
+using BibliotecaChatwoot.OpenAI;
 using Newtonsoft.Json;
 using OpenAI_API;
 using OpenAI_API.Models;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BibliotecasCrediMotos.Services.OpenaAI
+namespace BibliotecaChatwoot.Services.OpenaAI
 {
     public class AskOpenAI
     {

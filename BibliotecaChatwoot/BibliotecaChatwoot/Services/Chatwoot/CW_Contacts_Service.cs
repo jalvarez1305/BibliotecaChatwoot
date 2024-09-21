@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Net;
 using System.Text;
-using BibliotecasCrediMotos.Models.Chatwoot;
-using BibliotecasCrediMotos.Models.CRM;
+using BibliotecaChatwoot.Models.Chatwoot;
 using Newtonsoft.Json;
 using RestSharp;
 using Twilio.Http;
 
-namespace BibliotecasCrediMotos.Services.Chatwoot
+namespace BibliotecaChatwoot.Services.Chatwoot
 {
     public enum ContactUpdateFields
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BibliotecasCrediMotos.Models.Chatwoot
+namespace BibliotecaChatwoot.Models.Chatwoot
 {
     public class CW_Created_Contact
     {
