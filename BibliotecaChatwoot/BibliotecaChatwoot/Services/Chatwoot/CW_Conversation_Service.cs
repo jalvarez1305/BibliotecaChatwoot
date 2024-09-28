@@ -94,8 +94,12 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             return conv;
         }
 
-        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros,ChatwootSenders buzon= ChatwootSenders.Pacientes)
+        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
+            if (Parametros==null)
+            {
+                Parametros = new List<string>();
+            }
             Console.WriteLine($"Cantidad de parametros: {Parametros.Count} Texto: {Plantilla} al contacto: {contactoId} desde: {buzon}");
             string TextToSend = Plantilla;
             for (int ii = 0; ii < Parametros.Count; ii++)
