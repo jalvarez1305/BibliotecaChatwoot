@@ -21,6 +21,64 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             _config = new Config();
 
         }
+        public bool UpdateContactCustomAttributes(int contactId, Custom_Attributes customAttributes)
+        {
+            try
+            {
+                var client = new RestClient(_config.CW_URL);
+                var request = new RestRequest($"contacts/{contactId}", Method.Put);
+                request.AddHeader("api_access_token", _config.CW_TOKEN_CONTACTS);
+                request.AddHeader("Content-Type", "application/json");
+
+                // Serializando solo los custom attributes a JSON
+                var jsonBody = JsonConvert.SerializeObject(new
+                {
+                    
+                    custom_attributes = new
+                    {
+                        refered_by = customAttributes.refered_by,
+                        campaign_name = customAttributes.campaign_name,
+                        campaign_id = customAttributes.campaign_id,
+                        cumple = customAttributes.cumple.ToString("yyyy-MM-dd"), // Formateando la fecha
+                        nickname = customAttributes.nickname,
+                        correo = customAttributes.correo,
+                        es_prospecto = customAttributes.es_prospecto,
+                        recibe_ofertas = customAttributes.recibe_ofertas,
+                        servicios_recibidos = customAttributes.servicios_recibidos,
+                        interes_en = customAttributes.interes_en,
+                        cliente = customAttributes.cliente,
+                        monedero = customAttributes.monedero,
+                        gender = customAttributes.gender,
+                        especialidad = customAttributes.especialidad,
+                        color = customAttributes.color
+                    }                    
+                });
+
+                request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
+
+                var response = client.Execute(request);
+                Console.WriteLine($"Respuesta de actualización: {response.Content}");
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Console.WriteLine("Custom attributes actualizados correctamente.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Error al actualizar los custom attributes. Código de estado: {response.StatusCode}");
+                    Console.WriteLine($"Error: {response.Content}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return false;
+            }
+        }
+
+
         public bool Updatecontact(object NewValue, ContactUpdateFields Field,int ContactID)
         {
             bool res = false;
@@ -189,6 +247,40 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             return found_contact;
         }
+        public ContactFoundModel SearchContactById(string contactId)
+        {
+            ContactFoundModel found_contact = null;
+            try
+            {
+                var client = new RestClient(_config.CW_URL);
+                var request = new RestRequest($"contacts/{contactId}", Method.Get);
+                request.AddHeader("api_access_token", _config.CW_TOKEN_CONTACTS);
+
+                // Removiendo Content-Type, ya que no es necesario para GET
+                // request.AddHeader("Content-Type", "application/json");
+
+                var response = client.Execute(request);
+                Console.WriteLine($"Respuesta de búsqueda: {response.Content}");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    found_contact = JsonConvert.DeserializeObject<ContactFoundModel>(response.Content);
+                }
+                else
+                {
+                    Console.WriteLine($"Error al buscar el contacto. Código de estado: {response.StatusCode}");
+                    Console.WriteLine($"Error: {response.Content}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return null;
+            }
+            return found_contact;
+        }
+
+
     }
 
 }

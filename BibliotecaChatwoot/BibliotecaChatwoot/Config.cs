@@ -14,7 +14,8 @@ namespace BibliotecaChatwoot
 
         /*Chatwoot*/
         internal string CW_URL { get; } = "https://whatsapp.credi-motos.com/api/v1/accounts/1";
-        public string CW_TOKEN { get; set; } = "iz5ZxThF8MZSMPSY6GbsdsJC";
+        public string CW_TOKEN { get; set; } = "d6SPUdpP4xUbsHVbRDDytPqz";
+        public string CW_TOKEN_CONTACTS { get; set; } = "iz5ZxThF8MZSMPSY6GbsdsJC";
         /*OpenAI*/
         public string OPENAI_API_KEY { get; set; } = "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";
         /*S3*/

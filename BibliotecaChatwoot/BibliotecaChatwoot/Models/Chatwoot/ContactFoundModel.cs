@@ -9,7 +9,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
     public class ContactFoundModel
     {
         public Meta meta { get; set; }
-        public Payload_CFM[] payload { get; set; }
+        public Payload_CFM payload { get; set; }
     }
 
 

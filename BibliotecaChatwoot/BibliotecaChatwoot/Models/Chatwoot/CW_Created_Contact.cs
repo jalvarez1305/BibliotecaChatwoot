@@ -38,17 +38,21 @@ namespace BibliotecaChatwoot.Models.Chatwoot
 
     public class Custom_Attributes
     {
-        public string gender { get; set; }
-        public string uuid { get; set; }
         public string refered_by { get; set; }
-        public bool has_video { get; set; }
-        public bool has_valid_video { get; set; }
-        public bool has_ine { get; set; }
-        public bool has_valid_ine { get; set; }
-        public string ine_url { get; set; }
-        public string video_url { get; set; }
         public string campaign_name { get; set; }
         public string campaign_id { get; set; }
+        public DateTime cumple  { get; set; }
+        public string nickname { get; set; }
+        public string correo { get; set; }
+        public bool es_prospecto { get; set; }
+        public bool recibe_ofertas { get; set; }
+        public string servicios_recibidos { get; set; }
+        public string interes_en { get; set; }
+        public string cliente { get; set; }
+        public float monedero { get; set; }
+        public string gender { get; set; }
+        public string especialidad { get; set; }
+        public string color { get; set; }
     }
 
     public class Contact_Inboxes
