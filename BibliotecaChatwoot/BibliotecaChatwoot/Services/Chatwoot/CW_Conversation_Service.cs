@@ -65,7 +65,7 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             try
             {
-                int open_conv_id= GetConvFromContact(response.Content, ContactID);
+                conv_id = GetConvFromContact(response.Content, ContactID);
                 
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             {
                 if (item.meta.sender.id==contactID)
                 {
-                    conv = item.meta.sender.id;
+                    conv = item.id;
                     break;
                 }
                 else
@@ -116,6 +116,7 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             else
             {
+
                 var conversation = new CreateConversationBody()
                 {
                     contact_id = contactoId,
