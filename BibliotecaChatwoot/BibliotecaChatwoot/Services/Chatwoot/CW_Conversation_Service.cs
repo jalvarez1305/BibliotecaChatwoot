@@ -50,7 +50,7 @@ namespace BibliotecaChatwoot.Services.Chatwoot
         {
             int conv_id = 0;
             var request = new RestRequest($"/conversations?status=open", Method.Get);
-            request.AddHeader("Content-Type", "application/json");
+            //request.AddHeader("Content-Type", "application/json");
             request.AddHeader("api_access_token", _config.CW_TOKEN);
 
             var response = client.Execute(request);
