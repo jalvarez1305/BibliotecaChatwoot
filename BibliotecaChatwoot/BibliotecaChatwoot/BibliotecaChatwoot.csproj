@@ -143,6 +143,7 @@
     <Compile Include="Models\Chatwoot\AssignConversationModel.cs" />
     <Compile Include="Models\Chatwoot\ChatwootSenders.cs" />
     <Compile Include="Models\Chatwoot\ContactFoundModel.cs" />
+    <Compile Include="Models\Chatwoot\ConversationResponse.cs" />
     <Compile Include="Models\Chatwoot\CreateConversationBody.cs" />
     <Compile Include="Models\Chatwoot\CreateMessage.cs" />
     <Compile Include="Models\Chatwoot\CW_Created_Contact.cs" />

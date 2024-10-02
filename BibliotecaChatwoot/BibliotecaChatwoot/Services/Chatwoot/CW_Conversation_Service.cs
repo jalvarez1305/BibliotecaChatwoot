@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using BibliotecaChatwoot.Models.Chatwoot;
 using BibliotecaChatwoot.Models;
 using Twilio.Http;
+using System.Text;
 
 namespace BibliotecaChatwoot.Services.Chatwoot
 {
@@ -93,8 +94,31 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             return conv;
         }
+        public void ReabrirConversacion(int ConvID)
+        {
+            // Crear el contenido del body (JSON)
+            var jsonContent = new System.Net.Http.StringContent("{ \"status\": \"open\" }", Encoding.UTF8, "application/json");
 
-        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes)
+
+            var request = new RestRequest($"/conversations/{ConvID}/toggle_status", Method.Post);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("api_access_token", _config.CW_TOKEN);
+
+            request.AddJsonBody(jsonContent);
+
+            var response = client.Execute(request);
+            Console.WriteLine($"La respuesta al cambiar estaus fue: {JsonConvert.SerializeObject(response)}");
+
+            if (response.IsSuccessful)
+            {
+                Console.WriteLine("Estatus cambiado con éxito.");
+            }
+            else
+            {
+                Console.WriteLine($"Error al cambiar el estatus: {response.ErrorMessage}");
+            }
+        }
+        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes,string BotName=null)
         {
             if (Parametros==null)
             {
@@ -116,28 +140,52 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             else
             {
-
-                var conversation = new CreateConversationBody()
-                {
-                    contact_id = contactoId,
-                    inbox_id= (int)buzon,
-                    message = new Message()
-                    {
-                        content = TextToSend,                       
-                    }                    
-                };
-
                 var request = new RestRequest($"/conversations", Method.Post);
                 request.AddHeader("Content-Type", "application/json");
                 request.AddHeader("api_access_token", _config.CW_TOKEN);
+                if (BotName==null)
+                {
+                    var conversation = new CreateConversationBody()
+                    {
+                        contact_id = contactoId,
+                        inbox_id= (int)buzon,
+                        message = new Message()
+                        {
+                            content = TextToSend,                       
+                        }                    
+                    };
+                    request.AddJsonBody(conversation);
+                }
+                else
+                {
+                    var conversation = new CreateConversationBodyBot()
+                    {
+                        contact_id = contactoId,
+                        inbox_id = (int)buzon,
+                        message = new Message()
+                        {
+                            content = TextToSend,
+                        },
+                        custom_attributes= new BotAttributes() { bot=BotName}
+                    };
+                    request.AddJsonBody(conversation);
+                }
 
-                request.AddJsonBody(conversation);
 
                 var response = client.Execute(request);
                 Console.WriteLine($"La respuesta al enviar la plantilla fue: {JsonConvert.SerializeObject(response)}");
 
                 if (response.IsSuccessful)
                 {
+                    var conversationResponse = JsonConvert.DeserializeObject<ConversationResponse>(response.Content);
+                    if (conversationResponse != null && conversationResponse.status == "resolved")
+                    {
+                        ReabrirConversacion(conversationResponse.id);
+                    }
+                    else
+                    {
+                        /*do nothing*/
+                    }
                     Console.WriteLine("Mensaje enviado con éxito.");
                 }
                 else

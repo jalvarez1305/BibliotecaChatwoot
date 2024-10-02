@@ -13,6 +13,18 @@ namespace BibliotecaChatwoot.Models.Chatwoot
         public string status { get; set; } = "open";
         public Message message { get; set; }
     }
+    public class CreateConversationBodyBot
+    {
+        public int inbox_id { get; set; } = 2;
+        public int contact_id { get; set; }
+        public string status { get; set; } = "open";
+        public Message message { get; set; }
+        public BotAttributes custom_attributes { get; set; }
+    }
+    public class BotAttributes
+    {
+        public string bot { get; set; }
+    }
 
     public class Message
     {
