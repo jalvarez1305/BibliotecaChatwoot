@@ -53,6 +53,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
         public string gender { get; set; }
         public string especialidad { get; set; }
         public string color { get; set; }
+        public string contacto_secundario { get; set; }
     }
 
     public class Contact_Inboxes

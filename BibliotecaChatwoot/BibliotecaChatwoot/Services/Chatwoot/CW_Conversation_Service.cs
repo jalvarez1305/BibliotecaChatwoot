@@ -221,8 +221,9 @@ namespace BibliotecaChatwoot.Services.Chatwoot
         public void EnviarMensajeInicial(int contactoId, string Nombre,ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
             List<string> parametros = new List<string>();
-            parametros.Add(Nombre);
-            EnviaMensajePlantilla(contactoId, new Templates().sorteo_240430, parametros, buzon);            
+            var fisrtname = Nombre.Split(' ')[0];
+            parametros.Add(fisrtname);
+            EnviaMensajePlantilla(contactoId, new Templates().saludo_landing_main, parametros, buzon);            
         }
         public void SendConversationMessage(int ConversationID, string message,bool is_private=false, ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {

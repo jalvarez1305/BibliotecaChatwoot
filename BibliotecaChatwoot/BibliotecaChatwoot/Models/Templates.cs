@@ -16,6 +16,7 @@ namespace BibliotecaChatwoot.Models
 3️⃣ ¡Cuéntanos una historia en moto!
 
 ¡Esperamos tu video, campeón! 📹💨";
+        public string saludo_landing_main { get; set; } = @"Hola {{1}}, gracias por contactarnos. Como podemos ayudarte?";
         //public string sorteo_240429 { get; set; } =
         //    @"Bienvenido a credi motos {{1}} , ya casi estamos lavando tu moto. Estas listo para recibirla?";
 
