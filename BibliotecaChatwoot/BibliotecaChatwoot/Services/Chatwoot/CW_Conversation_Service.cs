@@ -118,6 +118,30 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                 Console.WriteLine($"Error al cambiar el estatus: {response.ErrorMessage}");
             }
         }
+        public void CerrarConversacion(int ConvID)
+        {
+            // Crear el contenido del body (JSON)
+            var jsonContent = new System.Net.Http.StringContent("{ \"status\": \"resolved\" }", Encoding.UTF8, "application/json");
+
+
+            var request = new RestRequest($"/conversations/{ConvID}/toggle_status", Method.Post);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("api_access_token", _config.CW_TOKEN);
+
+            request.AddJsonBody(jsonContent);
+
+            var response = client.Execute(request);
+            Console.WriteLine($"La respuesta al cambiar estaus fue: {JsonConvert.SerializeObject(response)}");
+
+            if (response.IsSuccessful)
+            {
+                Console.WriteLine("Estatus cambiado con éxito.");
+            }
+            else
+            {
+                Console.WriteLine($"Error al cambiar el estatus: {response.ErrorMessage}");
+            }
+        }
         public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes,string BotName=null)
         {
             if (Parametros==null)
