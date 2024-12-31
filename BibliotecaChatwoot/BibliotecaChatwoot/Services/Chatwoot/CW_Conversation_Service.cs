@@ -157,6 +157,17 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             }
             Console.WriteLine($"El mensaje a enviar es: {TextToSend}");
             int open_conv = GetOpenConversation(contactoId);
+            if (BotName != null)
+            {
+                /*Si para mandar plantilla se incluye un Bot, se tiene que iniciar una nueva conversacion*/
+                CerrarConversacion(open_conv);
+                open_conv = 0;
+            }
+            else
+            {
+                /*do nothing*/
+                /*Se sigue la logica normal*/
+            }
             if (open_conv > 0)
             {
                 Console.WriteLine($"Se enla conversacion: {open_conv}");
