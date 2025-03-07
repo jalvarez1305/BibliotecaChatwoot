@@ -8,7 +8,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
 {
     public enum ChatwootSenders
     {
-        Medicos =10,
-        Pacientes = 11
+        Medicos =12,
+        Pacientes = 12
     }
 }

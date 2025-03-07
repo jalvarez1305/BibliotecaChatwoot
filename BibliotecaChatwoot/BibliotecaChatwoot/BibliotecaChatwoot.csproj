@@ -160,6 +160,8 @@
     <Compile Include="Services\Chatwoot\CW_Contacts_Service.cs" />
     <Compile Include="Services\Chatwoot\CW_Conversation_Service.cs" />
     <Compile Include="Services\OpenAI\AskOpenAI.cs" />
+    <Compile Include="Services\Twilio\Config.cs" />
+    <Compile Include="Services\Twilio\TW_Services.cs" />
     <Compile Include="SQL_Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

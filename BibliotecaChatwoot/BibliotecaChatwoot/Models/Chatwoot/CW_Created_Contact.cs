@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,8 +44,31 @@ namespace BibliotecaChatwoot.Models.Chatwoot
         public string campaign_id { get; set; }
         public DateTime cumple  { get; set; }
         public string nickname { get; set; }
+        private int _esProspecto;
         public string correo { get; set; }
-        public bool es_prospecto { get; set; }
+        [JsonIgnore]
+        public int es_prospecto
+        {
+            get => _esProspecto;
+            set => _esProspecto = value;
+        }
+
+        [JsonProperty("es_prospecto")]
+        public object EsProspectoRaw
+        {
+            get => _esProspecto;
+            set
+            {
+                if (value is bool boolValue)
+                {
+                    _esProspecto = boolValue ? 1 : 0;
+                }
+                else if (value is int intValue)
+                {
+                    _esProspecto = intValue;
+                }
+            }
+        }
         public bool recibe_ofertas { get; set; }
         public string servicios_recibidos { get; set; }
         public string interes_en { get; set; }
