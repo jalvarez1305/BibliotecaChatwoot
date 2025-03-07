@@ -23,6 +23,22 @@ namespace BibliotecaChatwoot.Services.Twilio
 
 por favor"
             });
+
+
+            Templates.Add(new WA_Templates()
+            {
+                Name = "paciente",
+                SSID = "HX7d478e57dcf0aa9a34b7280110781c08",
+                Body = @"Hola, buen día. Su siguiente paciente ya llego. Lo paso?"
+            });
+
+
+            Templates.Add(new WA_Templates()
+            {
+                Name = "encuesta_docs_2",
+                SSID = "HXc9a54789d5464404388010347e832c25",
+                Body = @"Queremos ser siempre mejores. Nos puedes ayudar a calificar las instalaciones el día hoy por favor."
+            });
         }
     }
     public class WA_Templates
