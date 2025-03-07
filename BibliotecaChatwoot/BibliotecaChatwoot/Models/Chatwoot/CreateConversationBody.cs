@@ -29,6 +29,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
     public class Message
     {
         public string content { get; set; }
+        public bool @private { get; set; }
         public Template_Params template_params { get; set; }
     }
 

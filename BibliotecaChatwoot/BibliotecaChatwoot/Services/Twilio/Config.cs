@@ -11,5 +11,25 @@ namespace BibliotecaChatwoot.Services.Twilio
         public string accountSid { get; set; } = "AC394ceefe4187110ddfe10c0af31a9d4b";
         public string authToken { get; set; } = "a5e3b2351d10e775196937acc7a574c6";
         public string from { get; set; } = "whatsapp:+5213359800766";
+        public List<WA_Templates> Templates { get; set; }
+        public Config()
+        {
+            Templates = new List<WA_Templates>();
+            Templates.Add(new WA_Templates()
+            {
+                Name = "encuesta_pacientes",
+                SSID = "HXa04494e9dc6baa67887e384d0ad24091",
+                Body = @"Hola {{1}}, queremos ser siempre mejores para ti. Nos podrias decir como calificarías la atención brindada por tu medico {{2}}?
+
+por favor"
+            });
+        }
+    }
+    public class WA_Templates
+    {
+        public string SSID { get; set; }
+        public string Body { get; set; }
+        public string Name { get; set; }
+        public string url { get; set; }
     }
 }

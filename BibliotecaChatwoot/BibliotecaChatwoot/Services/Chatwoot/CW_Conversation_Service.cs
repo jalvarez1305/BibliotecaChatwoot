@@ -6,6 +6,7 @@ using BibliotecaChatwoot.Models.Chatwoot;
 using BibliotecaChatwoot.Models;
 using Twilio.Http;
 using System.Text;
+using BibliotecaChatwoot.Services.Twilio;
 
 namespace BibliotecaChatwoot.Services.Chatwoot
 {
@@ -13,10 +14,12 @@ namespace BibliotecaChatwoot.Services.Chatwoot
     {
         Config _config;
         private readonly RestClient client;
+        TW_Services tw_Services;
         public CW_Conversation_Service()
         {
             _config = new Config();
             client = new RestClient(_config.CW_URL);
+            tw_Services = new TW_Services();
         }
         public Messages GetMessagesFromConversation(int ConversationID)
         {
@@ -142,14 +145,19 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                 Console.WriteLine($"Error al cambiar el estatus: {response.ErrorMessage}");
             }
         }
-        public void EnviaMensajePlantilla(int contactoId,string Plantilla, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes,string BotName=null)
+        public void EnviaMensajePlantilla(int contactoId,string phoneNumber, WA_Templates Template, List<string> Parametros, ChatwootSenders buzon= ChatwootSenders.Pacientes,string BotName=null)
         {
+            Dictionary<string, object> tw_params = new Dictionary<string, object>();
             if (Parametros==null)
             {
                 Parametros = new List<string>();
             }
-            Console.WriteLine($"Cantidad de parametros: {Parametros.Count} Texto: {Plantilla} al contacto: {contactoId} desde: {buzon}");
-            string TextToSend = Plantilla;
+            else
+            {
+                tw_params =FormateaParametros(Parametros);
+            }
+            Console.WriteLine($"Cantidad de parametros: {Parametros.Count} Texto: {Template.Body} al contacto: {contactoId} desde: {buzon}");
+            string TextToSend = Template.Body;
             for (int ii = 0; ii < Parametros.Count; ii++)
             {
                 int jj = ii + 1;
@@ -168,10 +176,13 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                 /*do nothing*/
                 /*Se sigue la logica normal*/
             }
+            /*Sin importar conv abierta o cerrada hay que mandar primero el mensaje por whatsapp*/
+            tw_Services.SendTemplateAsync(phoneNumber, Template.SSID, tw_params);
             if (open_conv > 0)
             {
-                Console.WriteLine($"Se enla conversacion: {open_conv}");
-                SendConversationMessage(open_conv, TextToSend,buzon: buzon);
+                Console.WriteLine($"Se enla conversacion: {open_conv}");                
+                SendConversationMessage(open_conv, TextToSend,buzon: buzon,is_private:true);
+
             }
             else
             {
@@ -186,7 +197,8 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                         inbox_id= (int)buzon,
                         message = new Message()
                         {
-                            content = TextToSend,                       
+                            content = TextToSend,
+                            @private = true
                         }                    
                     };
                     request.AddJsonBody(conversation);
@@ -200,6 +212,7 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                         message = new Message()
                         {
                             content = TextToSend,
+                            @private = true
                         },
                         custom_attributes= new BotAttributes() { bot=BotName}
                     };
@@ -229,13 +242,18 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                 }
             }
         }
-        public void EnviarMensajeInicial(int contactoId, string Nombre,ChatwootSenders buzon= ChatwootSenders.Pacientes)
+
+        private Dictionary<string, object> FormateaParametros(List<string> parametros)
         {
-            List<string> parametros = new List<string>();
-            var fisrtname = Nombre.Split(' ')[0];
-            parametros.Add(fisrtname);
-            EnviaMensajePlantilla(contactoId, new Templates().saludo_landing_main, parametros, buzon);            
+            var parametrosDiccionario = new Dictionary<string, object>();
+
+            for (int i = 0; i < parametros.Count; i++)
+            {
+                parametrosDiccionario.Add((i + 1).ToString(), parametros[i]);
+            }
+            return parametrosDiccionario;
         }
+
         public void SendConversationMessage(int ConversationID, string message,bool is_private=false, ChatwootSenders buzon= ChatwootSenders.Pacientes)
         {
             Console.WriteLine($"Enviando: {ConversationID} Msg:{message}");

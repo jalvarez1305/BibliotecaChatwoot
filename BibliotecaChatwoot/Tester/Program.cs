@@ -14,7 +14,7 @@ namespace Tester
     {
         static async Task Main(string[] args)
         {
-            //CW_Conversation_Service s = new CW_Conversation_Service();
+            CW_Conversation_Service s = new CW_Conversation_Service();
             //var msg = "Hola, buenos días. Tienes un momento?";
             //List<string> parametros = new List<string>() { "Pablo", "Rosario" };
             ////s.EnviaMensajePlantilla(162, msg, parametros, ChatwootSenders.Pacientes,BotName:"EncuestaBot");
@@ -25,13 +25,12 @@ namespace Tester
             ////con.payload.custom_attributes.nickname = "Pablin";
             ////contacts_Service.UpdateContactCustomAttributes(con.payload.id,con.payload.custom_attributes);
             //Console.ReadLine();
-            var contentVariables = new Dictionary<string, object>
-        {
-            { "1", "Pablo" },
-            { "2", "Dra. Rosario" }
-        };
-            TW_Services tw = new TW_Services();
-            await tw.SendTemplateAsync("+523331830952", "HXa04494e9dc6baa67887e384d0ad24091", contentVariables);
+            var config = new BibliotecaChatwoot.Services.Twilio.Config();
+
+            // Buscar el template con el nombre "encuesta_pacientes"
+            var template = config.Templates.FirstOrDefault(t => t.Name == "encuesta_pacientes");
+            List<string> par = new List<string>() { "Pablin", "Dra. Lupita" };
+            s.EnviaMensajePlantilla(162, "+523331830952", template, par);
         }
     }
 }

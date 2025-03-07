@@ -17,13 +17,12 @@ namespace BibliotecaChatwoot.Services.Twilio
         }
         public async Task SendTemplateAsync(string To,string template_ssid, Dictionary<string, object> contentVariables)
         {
-
             TwilioClient.Init(config.accountSid, config.authToken);
             var contentJson = JsonConvert.SerializeObject(contentVariables, Formatting.Indented);
 
             var message = await MessageResource.CreateAsync(
                 contentSid: template_ssid,
-                to: new PhoneNumber(To),
+                to: new PhoneNumber($"whatsapp:{To}"),
                 from: new PhoneNumber(config.from),
                 contentVariables: contentJson
                 );
