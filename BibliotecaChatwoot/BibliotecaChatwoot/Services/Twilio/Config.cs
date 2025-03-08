@@ -9,7 +9,7 @@ namespace BibliotecaChatwoot.Services.Twilio
     public class Config
     {
         public string accountSid { get; set; } = "AC394ceefe4187110ddfe10c0af31a9d4b";
-        public string authToken { get; set; } = "a5e3b2351d10e775196937acc7a574c6";
+        public string authToken { get; set; } = "805b9a728db2f681c0af7310a340d035";
         public string from { get; set; } = "whatsapp:+5213359800766";
         public List<WA_Templates> Templates { get; set; }
         public Config()
