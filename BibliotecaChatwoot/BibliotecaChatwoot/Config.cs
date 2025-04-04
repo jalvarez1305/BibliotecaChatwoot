@@ -30,5 +30,8 @@ namespace BibliotecaChatwoot
         public string AIRTABLE_VIDEOS_TOKEN { get; } = "path40QrniNFiwAEN.0a50fa280017688168025f02e6f2ab6f361c2146466949f3bd27345122cf338c";
         public string AIRTABLE_BASEID { get; set; } = "appMidDcWNWmUd8An";/*CM_Videos*/
         public string ARTABLE_TABLE_NAME { get; set; } = "Boletos";
+        /*Paps*/
+        public string AK { get; set; } = "AKIAWT4ZPKLYDIBIFAO7";
+        public string Sec { get; set; } = "wKWFvL8/gW54ihLKRvo3TgQRoX+Sfghqrq4J3eqs";
     }
 }
