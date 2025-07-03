@@ -21,6 +21,44 @@ namespace BibliotecaChatwoot.Services.Chatwoot
             _config = new Config();
 
         }
+        public bool UpdateContactPhoneNumber(int contactId, string phoneNumber)
+        {
+            try
+            {
+                var client = new RestClient(_config.CW_URL);
+                var request = new RestRequest($"contacts/{contactId}", Method.Put);
+                request.AddHeader("api_access_token", _config.CW_TOKEN_CONTACTS);
+                request.AddHeader("Content-Type", "application/json");
+
+                var jsonBody = JsonConvert.SerializeObject(new
+                {
+                    phone_number = phoneNumber
+                });
+
+                request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
+
+                var response = client.Execute(request);
+                Console.WriteLine($"Respuesta de actualización de teléfono: {response.Content}");
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Console.WriteLine("Teléfono actualizado correctamente.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Error al actualizar el teléfono. Código de estado: {response.StatusCode}");
+                    Console.WriteLine($"Error: {response.Content}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception occurred: {ex.Message}");
+                return false;
+            }
+        }
+
         public bool UpdateContactCustomAttributes(int contactId, Custom_Attributes customAttributes)
         {
             try
@@ -50,7 +88,8 @@ namespace BibliotecaChatwoot.Services.Chatwoot
                         monedero = customAttributes.monedero,
                         gender = customAttributes.gender,
                         especialidad = customAttributes.especialidad,
-                        color = customAttributes.color
+                        color = customAttributes.color,
+                        lead_source=customAttributes.lead_source
                     }                    
                 });
 

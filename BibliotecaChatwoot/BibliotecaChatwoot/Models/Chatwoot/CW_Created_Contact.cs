@@ -42,7 +42,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
         public string refered_by { get; set; }
         public string campaign_name { get; set; }
         public string campaign_id { get; set; }
-        public DateTime cumple  { get; set; }
+        public DateTime cumple { get; set; } = new DateTime(1940, 01, 01);
         public string nickname { get; set; }
         private int _esProspecto;
         public string correo { get; set; }
@@ -78,6 +78,7 @@ namespace BibliotecaChatwoot.Models.Chatwoot
         public string especialidad { get; set; }
         public string color { get; set; }
         public string contacto_secundario { get; set; }
+        public string lead_source { get; set; }
     }
 
     public class Contact_Inboxes

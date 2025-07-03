@@ -27,9 +27,13 @@ por favor"
 
             Templates.Add(new WA_Templates()
             {
-                Name = "paciente",
-                SSID = "HX7d478e57dcf0aa9a34b7280110781c08",
-                Body = @"Hola, buen día. Su siguiente paciente ya llego. Lo paso?"
+                Name = "paciente_presentev2",
+                SSID = "HX0863fe50ac30027ffce6185986f0e578",
+                Body = @"Hola, buen día. Su paciente {{1}} de las {{2}} ya llego, viene por: 
+
+{{3}}.
+
+Lo paso?"
             });
 
 
